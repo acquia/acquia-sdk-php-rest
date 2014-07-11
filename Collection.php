@@ -49,7 +49,7 @@ class Collection extends \ArrayObject
      *
      * @see \Acquia\Rest\Element::__toString()
      */
-    public function getIterator()
+    public function getIterator($idColumn = NULL)
     {
         $array = $this->getArrayCopy();
 
@@ -76,6 +76,9 @@ class Collection extends \ArrayObject
         $collection = array();
         foreach ($array as $item) {
             $element = new $this->elementClass($item);
+            if (isset($idColumn)) {
+                $element->setIdColumn($idColumn);
+            }
             $collection[(string) $element] = $element;
         }
 
